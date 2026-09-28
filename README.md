@@ -14,3 +14,9 @@ Open `index.html` in a browser, or run `python3 -m http.server` and visit http:/
 
 Settings → Pages → Source: *Deploy from a branch* → Branch: `master`, folder `/ (root)`.
 The site will be live at https://faizadhio.github.io/faiz/.
+
+## Dota 2 Meta Builds
+
+`dota/` is a separate static page that lists every Dota 2 hero with win rate, pick rate and a meta tier for the chosen rank bracket, plus the most bought items per game phase, a core build and matchups. Data comes live from the free [OpenDota API](https://docs.opendota.com/) and is cached in the browser for a day.
+
+Live at https://faizadhio.github.io/faiz/dota/ once merged.
