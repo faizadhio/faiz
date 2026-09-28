@@ -364,3 +364,21 @@ if (pipeline && !reduceMotion) {
     }
   }, { threshold: 0.2 }).observe(pipeline);
 }
+
+// ---- Hero stage: tilts back in 3D and flattens as you scroll (Framer-style) ----
+const stage = $('.stage');
+if (stage && !reduceMotion) {
+  let ticking2 = false;
+  const update = () => {
+    const r = stage.getBoundingClientRect();
+    // 0 when the stage top sits at the bottom of the viewport, 1 when it reaches 25% from the top
+    const p = Math.min(Math.max((innerHeight - r.top) / (innerHeight * 0.75), 0), 1);
+    stage.style.setProperty('--tilt', `${(1 - p) * 28}deg`);
+    stage.style.setProperty('--sc', (0.88 + p * 0.12).toFixed(3));
+    stage.style.setProperty('--spread', p.toFixed(3));
+    ticking2 = false;
+  };
+  window.addEventListener('scroll', () => { if (!ticking2) { ticking2 = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}

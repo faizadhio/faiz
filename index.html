@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%230a84ff'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='700' font-size='38' fill='white'>F</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700;800&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -35,8 +35,8 @@
 
   <main id="top">
     <!-- Hero -->
-    <section class="hero container">
-      <div class="hero-text">
+    <section class="hero">
+      <div class="container hero-text">
         <p class="pill reveal"><span class="dot"></span><span class="rotator" aria-live="polite">
           <span>Senior iOS Developer at BRI</span>
           <span>Former iOS Squad Lead, MyTelkomsel</span>
@@ -49,14 +49,17 @@
           from the iOS squad behind <strong>MyTelkomsel</strong> to daily banking in <strong>Qita by BRI</strong>
           and food delivery in <strong>GoMamam</strong>.
         </p>
-        <div class="cta reveal" style="--d:.65s">
-          <a class="btn primary magnetic" href="#apps">Explore my work <span aria-hidden="true">→</span></a>
-          <a class="btn ghost magnetic" href="mailto:faizadhio@gmail.com">faizadhio@gmail.com</a>
+        <div class="cta center reveal" style="--d:.65s">
+          <a class="btn primary magnetic" href="#apps">Explore my work</a>
+          <a class="btn ghost magnetic" href="mailto:faizadhio@gmail.com">Get in touch</a>
         </div>
       </div>
 
-      <div class="hero-visual reveal" style="--d:.3s" aria-hidden="true">
-        <div class="phone tilt">
+      <div class="stage-wrap reveal" style="--d:.8s" aria-hidden="true">
+        <div class="stage">
+          <img class="stage-shot s1" src="assets/shots/gomamam-2.webp" alt="">
+          <img class="stage-shot s2" src="assets/shots/telkomsel-1.webp" alt="">
+        <div class="phone stage-center">
           <div class="phone-screen home">
             <div class="status"><span>9:41</span><span class="island"></span><span>●●●</span></div>
             <div class="home-grid">
@@ -77,11 +80,13 @@
             <div class="toast"><img src="assets/qita.webp" alt=""><div><b>Build succeeded</b><small>Qita · Release 4.2 on TestFlight</small></div></div>
           </div>
         </div>
-        <span class="float-chip c1">Swift</span>
-        <span class="float-chip c2">SwiftUI</span>
-        <span class="float-chip c3">Clean Architecture</span>
+          <img class="stage-shot s4" src="assets/shots/qita-5.webp" alt="">
+          <img class="stage-shot s5" src="assets/shots/telkomsel-3.webp" alt="">
+          <span class="float-chip c1">Swift</span>
+          <span class="float-chip c2">SwiftUI</span>
+          <span class="float-chip c3">Clean Architecture</span>
+        </div>
       </div>
-      <a href="#about" class="scroll-hint" aria-label="Scroll down"><span></span></a>
     </section>
 
     <!-- Stats -->
