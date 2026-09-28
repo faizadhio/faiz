@@ -2,6 +2,8 @@
 
 Personal portfolio of **Faiz Ahmadhio Herman**, Senior iOS Developer.
 
+Live site: https://faizadhio.github.io/faiz/
+
 A static site (`index.html`, `styles.css`, `script.js` and `assets/`) with no build step. It uses a dark theme with scroll animations, and motion is turned off for visitors who prefer reduced motion.
 
 ## Preview locally
