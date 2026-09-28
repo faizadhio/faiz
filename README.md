@@ -2,7 +2,7 @@
 
 Personal portfolio of **Faiz Ahmadhio Herman**, Senior iOS Developer.
 
-A static site (`index.html` + `styles.css`, no build step). Light and dark mode follow the system setting.
+A static site (`index.html`, `styles.css`, `script.js` and `assets/`) with no build step. It uses a dark theme with scroll animations, and motion is turned off for visitors who prefer reduced motion.
 
 ## Preview locally
 
