@@ -277,3 +277,90 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') move(-1);
   if (e.key === 'ArrowRight') move(1);
 });
+
+// ---- "How I ship" pipeline: one timer drives the dot, the fill and the lit step ----
+const pipeline = $('.pipeline');
+if (pipeline && !reduceMotion) {
+  const steps = $$('.step', pipeline);
+  const nums = steps.map(s => $('.step-num', s));
+  const fill = document.createElement('span');
+  const dot = document.createElement('span');
+  fill.className = 'pipe-fill';
+  dot.className = 'pipe-dot';
+  fill.setAttribute('aria-hidden', 'true');
+  dot.setAttribute('aria-hidden', 'true');
+  pipeline.append(fill, dot);
+
+  const MOVE = 700;  // ms travelling between two steps
+  const HOLD = 900;  // ms resting on a step
+  const SEG = MOVE + HOLD;
+  const CYCLE = SEG * steps.length;
+  let centers = [];
+  let horizontal = true;
+
+  const measure = () => {
+    // Use layout offsets, not bounding boxes, so reveal transforms don't skew the positions
+    centers = nums.map((n, k) => ({
+      x: steps[k].offsetLeft + n.offsetLeft + n.offsetWidth / 2,
+      y: steps[k].offsetTop + n.offsetTop,
+    }));
+    horizontal = centers.every(c => Math.abs(c.y - centers[0].y) < 4);
+    pipeline.style.setProperty('--x0', `${centers[0].x}px`);
+    pipeline.style.setProperty('--x1', `${centers[centers.length - 1].x}px`);
+  };
+  const ease = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  let start = null;
+  let running = false;
+  let lastActive = -1;
+  const frame = now => {
+    if (!running) return;
+    if (start === null) start = now;
+    const t = (now - start) % CYCLE;
+    const i = Math.floor(t / SEG);           // step we are resting on or leaving
+    const within = t - i * SEG;
+    const resting = within < HOLD;
+    const active = resting ? i : -1;
+
+    if (active !== lastActive) {
+      steps.forEach((s, k) => {
+        s.classList.toggle('active', k === active);
+        s.classList.toggle('done', k < (resting ? i : i + 1) && k !== active);
+      });
+      lastActive = active;
+    }
+
+    if (horizontal && centers.length) {
+      const last = centers.length - 1;
+      let x;
+      if (resting || i === last) {
+        x = centers[i].x;
+      } else {
+        const p = ease((within - HOLD) / MOVE);
+        x = centers[i].x + (centers[i + 1].x - centers[i].x) * p;
+      }
+      // After the last step, fade the dot out and let it restart at step one
+      const fadingOut = i === last && !resting;
+      dot.style.opacity = fadingOut ? String(1 - (within - HOLD) / MOVE) : '1';
+      dot.style.transform = `translateX(${x}px)`;
+      fill.style.width = `${Math.max(0, x - centers[0].x)}px`;
+    }
+    requestAnimationFrame(frame);
+  };
+
+  measure();
+  window.addEventListener('resize', measure);
+  document.fonts && document.fonts.ready.then(measure);
+  new IntersectionObserver(entries => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !running) {
+      running = true;
+      start = null;
+      lastActive = -1;
+      measure();
+      requestAnimationFrame(frame);
+    } else if (!visible) {
+      running = false;
+    }
+  }, { threshold: 0.2 }).observe(pipeline);
+}

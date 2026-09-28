@@ -520,28 +520,38 @@ h1 {
 
 .pipeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; position: relative; }
 .pipeline::before {
-  content: ""; position: absolute; left: 4%; right: 4%; top: 27px; height: 2px;
-  background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); opacity: .35;
+  content: ""; position: absolute; left: var(--x0, 28px); width: calc(var(--x1, 100%) - var(--x0, 28px)); top: 27px; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); opacity: .3;
 }
-.pipeline::after {
-  content: ""; position: absolute; top: 22px; left: 4%; width: 12px; height: 12px; border-radius: 50%;
-  background: #fff; box-shadow: 0 0 16px 4px var(--purple); animation: travel 6s cubic-bezier(.6, 0, .4, 1) infinite;
+.pipe-fill {
+  position: absolute; left: var(--x0, 28px); top: 27px; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); box-shadow: 0 0 10px var(--purple);
 }
-@keyframes travel { 0% { left: 4%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 95%; opacity: 0; } }
-.step { position: relative; }
+.pipe-dot {
+  position: absolute; z-index: 0; top: 22px; left: 0; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 16px 4px var(--purple); pointer-events: none;
+}
+.step { position: relative; z-index: 1; }
 .step-num {
   position: relative; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
   font-family: var(--mono); font-weight: 600; font-size: 15px; background: var(--bg); border: 2px solid var(--indigo);
-  animation: pulseStep 6s infinite; animation-delay: calc(var(--i) * 1s);
+  transition: background .35s, border-color .35s, box-shadow .35s, transform .35s cubic-bezier(.3, 1.6, .5, 1);
 }
-@keyframes pulseStep { 0%, 14% { background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent; box-shadow: 0 0 30px -4px var(--purple); } 22%, 100% { background: var(--bg); border-color: var(--indigo); box-shadow: none; } }
+.step.done .step-num { border-color: var(--purple); }
+.step.active .step-num {
+  background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent;
+  box-shadow: 0 0 30px -4px var(--purple); transform: scale(1.1);
+}
+.step h3, .step p { transition: color .35s; }
+.step.active h3 { color: #fff; }
+.step.active p { color: #c9c9d9; }
 .step h3 { font-family: var(--display); font-size: 20px; margin: 18px 0 6px; letter-spacing: -.02em; }
 .step p { margin: 0; color: var(--muted); font-size: 14px; }
 
 @media (max-width: 960px) {
   .pillars { grid-template-columns: 1fr 1fr; }
   .pipeline { grid-template-columns: 1fr 1fr 1fr; row-gap: 32px; }
-  .pipeline::before, .pipeline::after { display: none; }
+  .pipeline::before, .pipe-fill, .pipe-dot { display: none; }
 }
 @media (max-width: 640px) {
   .pillars { grid-template-columns: 1fr; }
