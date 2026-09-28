@@ -96,8 +96,7 @@ h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.08; letter-spacing: -.03e
 .feature h3 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
 .app-icon {
   width: 60px; height: 60px; border-radius: 14px; flex: none;
-  display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 28px;
-  background: linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 60%, #000));
+  object-fit: cover; box-shadow: 0 0 0 1px var(--border);
 }
 .highlights { padding-left: 20px; margin: 16px 0 20px; }
 .highlights li { margin-bottom: 6px; }
