@@ -5,6 +5,16 @@ const finePointer = window.matchMedia('(pointer: fine)').matches;
 
 $('#year').textContent = new Date().getFullYear();
 
+// ---- Years of experience, counted from the start of Faiz's career ----
+const CAREER_START = 2019;
+const YEARS = new Date().getFullYear() - CAREER_START;
+const WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+  'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
+$$('.yrs').forEach(el => {
+  el.textContent = el.dataset.format === 'word' ? (WORDS[YEARS] || YEARS) : YEARS;
+});
+$$('.yrs-count').forEach(el => { el.dataset.to = YEARS; el.textContent = YEARS; });
+
 // ---- Screenshot data (used by gallery rails and lightbox) ----
 const SHOTS = [
   ['telkomsel-1', 'MyTelkomsel', 'Personalized package recommendations'],
@@ -119,7 +129,7 @@ if (rot) {
 const CODE = [
   ['k', 'struct'], [' '], ['t', 'Faiz'], [': '], ['t', 'iOSDeveloper'], [' {\n'],
   ['  '], ['k', 'let'], [' role = '], ['s', '"Senior iOS Developer"'], ['\n'],
-  ['  '], ['k', 'let'], [' experience = '], ['n', '7'], ['.'], ['f', 'years'], ['\n'],
+  ['  '], ['k', 'let'], [' experience = '], ['n', String(YEARS)], ['.'], ['f', 'years'], ['\n'],
   ['  '], ['k', 'let'], [' shipped = ['], ['s', '"MyTelkomsel"'], [', '], ['s', '"Qita by BRI"'], [', '], ['s', '"GoMamam"'], [']\n'],
   ['  '], ['k', 'let'], [' stack: ['], ['t', 'Skill'], ['] = [.'], ['f', 'swift'], [', .'], ['f', 'swiftUI'], [', .'], ['f', 'uiKit'], [', .'], ['f', 'flutter'], [']\n\n'],
   ['  '], ['k', 'func'], [' '], ['f', 'build'], ['(_ idea: '], ['t', 'Idea'], [') '], ['k', 'async'], [' -> '], ['t', 'App'], [' {\n'],
